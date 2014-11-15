@@ -1,0 +1,36 @@
+<% content_for :title, "Lista de libros" %>
+<div id="books_index">
+  <h1><%= yield :title %></h1>
+
+  <% if @books.blank? %>
+    <div class="alert alert-warning">No hay libros que mostrar</div>
+  <% else %>
+    <div class="responsive-fake-table expansible-fake-table">
+      <header class="row">
+        <div class="col col-xs-6 col-sm-4"><%=t('activerecord.attributes.book.title')%></div>
+        <div class="col col-xs-5 col-sm-3"><%=t('activerecord.attributes.book.author')%></div>
+        <div class="col hidden-xs col-sm-4"><%=t('activerecord.attributes.book.editorial')%></div>
+        <div class="col col-xs-1 col-sm-1">&nbsp;</div>
+      </header>
+      <% @books.each do |book|%>
+      <section class="row">
+        <div class="col col-xs-6 col-sm-4 toggle"><%=book.title %></div>
+        <div class="col col-xs-5 col-sm-3 toggle"><%=book.author%></div>
+        <div class="col hidden-xs col-sm-4 toggle"><%=book.editorial%></div>
+        <div class="col col-xs-1 col-sm-1">
+          <%= link_to content_tag('i','', class: 'fa fa-eye'), book, class: 'tooltipable', title: 'Ver' %>
+          <%= link_to content_tag('i','', class: 'fa fa-pencil-square-o'), edit_book_path(book), class: 'tooltipable', title: 'Editar' %>
+          <%= link_to content_tag('i','', class: 'fa fa-times'), book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'tooltipable', title: 'Eliminar' %>
+        
+        </div>
+        <div class="col col-xs-12 panel-collapse collapse">
+          <p class="visible-xs-block">Editorial: <%=book.editorial%></p>
+          <p>Título original: <%=book.original_title%></p>
+        </div>
+      </section>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= link_to 'Agregar libro', new_book_path, class: 'btn btn-primary' %>
+</div>
