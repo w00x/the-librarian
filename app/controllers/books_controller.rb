@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   respond_to :html
+  before_action :authenticate_user!
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
   def index
