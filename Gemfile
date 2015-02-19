@@ -66,3 +66,4 @@ end
 
 #manejo de imagenes
 gem 'paperclip'
+gem 'jquery-datatables-rails'

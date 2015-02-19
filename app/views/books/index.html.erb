@@ -5,55 +5,33 @@
   <% if @books.blank? %>
     <div class="alert alert-warning">No hay libros que mostrar</div>
   <% else %>
-    <div class="responsive-fake-table expansible-fake-table">
-      <header class="row">
-        <div class="col col-xs-5 col-sm-4 col-md-3"><%=t('activerecord.attributes.book.title')%></div>
-        <div class="col col-xs-5 col-sm-3 col-md-3"><%=t('activerecord.attributes.book.author')%></div>
-        <div class="col hidden-xs col-sm-4 col-md-3"><%=t('activerecord.attributes.book.editorial')%></div>
-        <div class="col hidden-xs hidden-sm col-md-2"><%=t('activerecord.attributes.book.edition')%></div>
-        <div class="col col-xs-2 col-sm-1 col-md-1"><span class="hidden-sm hidden-xs">Opciones</span>&nbsp;</div>
-      </header>
-      <% @books.each do |book|%>
-        <section class="row">
-          <div class="col col-xs-5 col-sm-4 col-md-3 toggle">
-            <%= link_to(image_tag(book.image.url(:small)), book.image.url) if book.image.present? %> <%=book.title %>
-          </div>
-          <div class="col col-xs-5 col-sm-3 col-md-3 toggle"><%=book.authors.map { |e| e.author }.join(',') %></div>
-          <div class="col hidden-xs col-sm-4 col-md-3 toggle"><%=book.editorial.editorial%></div>
-          <div class="col hidden-xs hidden-sm col-md-2 toggle"><%=book.edition%></div>
-          <div class="col col-xs-2 col-sm-1 col-md-1">
-            <%= link_to content_tag('i','', class: 'fa fa-eye'), book, class: 'tooltipable', title: 'Ver' %>
-            <%= link_to content_tag('i','', class: 'fa fa-pencil-square-o'), edit_book_path(book), class: 'tooltipable', title: 'Editar' %>
-            <%= link_to content_tag('i','', class: 'fa fa-times'), book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'tooltipable', title: 'Eliminar' %>
-        
-          </div>
-          <div class="col col-xs-12 panel-collapse collapse">
-            <dl class="dl-horizontal">
-              
-              <dt class="visible-xs"><%=t('activerecord.attributes.book.editorial') %></dt>
-              <dd class="visible-xs"><%=book.editorial || '-' %></dd>
-              
-              <dt><%=t('activerecord.attributes.book.original_title') %></dt>
-              <dd><%=book.original_title || '-' %></dd>
-              
-              <dt class="visible-xs visible-sm"><%=t('activerecord.attributes.book.edition') %></dt>
-              <dd class="visible-xs visible-sm"><%=book.edition || '-' %></dd>
-              
-              <dt><%=t('activerecord.attributes.book.edition_date') %></dt>
-              <dd><%=book.edition_date.present? ? l(book.edition_date) : '-' %></dd>
-              
-              <dt><%=t('activerecord.attributes.book.publication_year') %></dt>
-              <dd><%=book.publication_year || '-' %></dd>
-              
-              <dt></dt>
-              <dd>
-              </dd>
-            </dl>
-            <%= link_to 'Ver más', book, class: 'btn btn-default btn-xs more-book-btn' %>                
-          </div>
-        </section>
-      <% end %>
-    </div>
+
+    <table id="books" class="table">
+      <thead>
+        <tr>
+          <th><%=t('activerecord.attributes.book.title')%></th>
+          <th><%=t('activerecord.attributes.book.author')%></th>
+          <th><%=t('activerecord.attributes.book.editorial')%></th>
+          <th><%=t('activerecord.attributes.book.edition')%></th>
+          <th><span class="hidden-sm hidden-xs">Opciones</span>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @books.each do |book| %>
+          <tr>
+            <td><%= link_to(image_tag(book.image.url(:small)), book.image.url) if book.image.present? %> <%=book.title %></td>
+            <td><%=book.authors.map { |e| e.author }.join(',') %></td>
+            <td><%=book.editorial.editorial%></td>
+            <td><%=book.edition%></td>
+            <td>
+              <%= link_to content_tag('i','', class: 'fa fa-eye'), book, class: 'tooltipable', title: 'Ver' %>
+              <%= link_to content_tag('i','', class: 'fa fa-pencil-square-o'), edit_book_path(book), class: 'tooltipable', title: 'Editar' %>
+              <%= link_to content_tag('i','', class: 'fa fa-times'), book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'tooltipable', title: 'Eliminar' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   <% end %>
 
   <%= link_to 'Agregar libro', new_book_path, class: 'btn btn-primary' %>
