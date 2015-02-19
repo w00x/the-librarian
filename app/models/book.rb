@@ -22,5 +22,6 @@ class Book < ActiveRecord::Base
   validates :title, :author, :editorial, :presence => true
   validates :edition, :publication_year, numericality: { only_integer: true, greater_than: 0 }, allow_nil: true
   
-  
+  has_attached_file :image, styles: { small: "20x20", med: "100x100", large: "200x150" }
+  validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 end
