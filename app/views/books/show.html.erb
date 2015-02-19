@@ -7,7 +7,7 @@
         <dt><%=t('activerecord.attributes.book.title') %></dt>
         <dd><%=@book.title || '-' %></dd>
         <dt><%=t('activerecord.attributes.book.author') %></dt>
-        <dd><%=@book.author || '-' %></dd>
+        <dd><%=@book.authors.map { |e| e.author }.join(',') || '-' %></dd>
         <dt><%=t('activerecord.attributes.book.editorial') %></dt>
         <dd><%=@book.editorial.editorial || '-' %></dd>
         <dt><%=t('activerecord.attributes.book.original_title') %></dt>

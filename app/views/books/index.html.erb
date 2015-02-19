@@ -18,7 +18,7 @@
           <div class="col col-xs-5 col-sm-4 col-md-3 toggle">
             <%= link_to(image_tag(book.image.url(:small)), book.image.url) if book.image.present? %> <%=book.title %>
           </div>
-          <div class="col col-xs-5 col-sm-3 col-md-3 toggle"><%=book.author%></div>
+          <div class="col col-xs-5 col-sm-3 col-md-3 toggle"><%=book.authors.map { |e| e.author }.join(',') %></div>
           <div class="col hidden-xs col-sm-4 col-md-3 toggle"><%=book.editorial.editorial%></div>
           <div class="col hidden-xs hidden-sm col-md-2 toggle"><%=book.edition%></div>
           <div class="col col-xs-2 col-sm-1 col-md-1">

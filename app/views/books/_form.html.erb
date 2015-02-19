@@ -21,7 +21,10 @@
   <div class="form-group">
     <%= f.label :author, :class => "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.text_field :author, :class => "form-control" %>
+      <% Author.all.each do |author| %>
+        <%= check_box_tag "book[author_ids][]", author.id, @book.author_ids.include?(author.id), id: dom_id(author) %>
+        <%= label_tag dom_id(author), author.author %><br>
+      <% end %>
     </div>
   </div>
   <div class="form-group">
